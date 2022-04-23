@@ -1,32 +1,39 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.jsx',
+  entry: './src/index.tsx',
   devServer: {
     port: 9000
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+     plugins: [
+      new TSConfigPathsPlugin({
+        configFile: path.resolve(__dirname, '..', './tsconfig.json'),
+      }),
+    ],
   },
   module: {
     rules: [
       { 
-        test: /\.(js|jsx)$/, 
+        test: /\.(ts|js)x?$/, 
         exclude: /node_modules/, 
         use: {
           loader: 'babel-loader',
           options: {
             presets: [
               "@babel/preset-env",
-              "@babel/preset-react"
+              "@babel/preset-react",
+              "@babel/preset-typescript"
             ],
             plugins: [
               "@babel/plugin-proposal-class-properties",
               "@babel/plugin-transform-runtime"
             ]
           }
-        }, 
-        resolve: {
-            extensions: [".js", ".jsx"]
         }
       }
     ]
