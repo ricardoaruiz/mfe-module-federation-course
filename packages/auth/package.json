@@ -1,0 +1,7 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Ricardo Ruiz",
+  "license": "MIT"
+}
