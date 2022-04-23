@@ -6,4 +6,4 @@ import App from './App'
 
 const container = document.querySelector('#container-root')
 const root = createRoot(container!)
-root.render(<App />);
+root.render(<App />)
