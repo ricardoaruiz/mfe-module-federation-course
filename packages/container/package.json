@@ -5,7 +5,9 @@
   "author": "Ricardo Ruiz",
   "license": "MIT",
   "scripts": {
-    "start": "webpack serve --config ./webpack/webpack.dev.js",
+    "dev": "webpack serve --config ./webpack/webpack.dev.js --env DEV_SERVER_PORT=9000",
+    "build": "yarn clean && webpack --config ./webpack/webpack.prod.js",
+    "clean": "rimraf dist",
     "test": "jest",
     "test:watch": "jest --watchAll --verbose --coverage false",
     "lint": "eslint src"
@@ -41,12 +43,14 @@
     "jest": "^27.5.1",
     "jest-transform-stub": "^2.0.0",
     "prettier": "^2.6.2",
+    "rimraf": "^3.0.2",
     "ts-jest": "^27.1.4",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
     "typescript": "^4.6.3",
     "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.8.1"
+    "webpack-dev-server": "^4.8.1",
+    "webpack-merge": "^5.8.0"
   },
   "dependencies": {
     "react": "^18.0.0",
