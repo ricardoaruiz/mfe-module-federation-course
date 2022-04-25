@@ -1,7 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App should render correctly 1`] = `
-<h1>
-  Container works fine!! Now with React and Typescript
-</h1>
+<header
+  class="sc-bczRLJ gEBsPY"
+>
+  <div
+    aria-label="MFes - Module Federation"
+    class="sc-gsnTZi ceSsda"
+    role="presentation"
+  >
+    MFes - Module Federation
+  </div>
+  <div
+    class="sc-dkzDqf beQdYK"
+  >
+    <button
+      class="sc-hKMtZM cyqgDw"
+      type="button"
+    >
+      Login
+    </button>
+  </div>
+</header>
 `;
