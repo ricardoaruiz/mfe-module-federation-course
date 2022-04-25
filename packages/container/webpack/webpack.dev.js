@@ -6,8 +6,15 @@ const commonConfig = require('./webpack.common')
 
 module.exports = (env) => {
   if (!env.DEV_SERVER_PORT) {
-    console.log(
-      `The DEV_SERVER_PORT was not provided. The used port will be defined by Webpack`
+    console.info(
+      'The DEV_SERVER_PORT was not provided. The used port will be defined by Webpack'
+    )
+  }
+
+  const mfsHost = env.MFS_HOST || 'http://localhost'
+  if (!env.MFS_HOST) {
+    console.info(
+      'The MFS_HOST was not provided. The used MFS_HOST will be "http://localhost"'
     )
   }
 
@@ -27,7 +34,7 @@ module.exports = (env) => {
       new ModuleFederationPlugin({
         name: 'MFContainer',
         remotes: {
-          marketing: 'MFMarketing@http://localhost:9001/remoteEntry.js',
+          marketing: `MFMarketing@${mfsHost}:9001/remoteEntry.js`,
         },
       }),
     ],

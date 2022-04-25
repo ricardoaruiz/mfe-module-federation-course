@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack serve --config ./webpack/webpack.dev.js --env DEV_SERVER_PORT=9000",
-    "build": "yarn clean && webpack --config ./webpack/webpack.prod.js",
+    "build": "yarn clean && webpack --config ./webpack/webpack.prod.js --env MFS_HOST=https://d3oqrojm0l6cby.cloudfront.net",
     "clean": "rimraf dist",
     "test": "jest",
     "test:watch": "jest --watchAll --verbose --coverage false",
