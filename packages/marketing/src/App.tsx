@@ -1,16 +1,26 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import {
+  unstable_HistoryRouter as HistoryRouter,
+  Routes,
+  Route,
+} from 'react-router-dom'
 
-import { Home, Price } from 'pages'
+import { BrowserHistory, MemoryHistory } from 'history'
 
-const App: React.FC = () => {
+import { Home, Price } from './pages'
+
+type AppProps = {
+  history: BrowserHistory | MemoryHistory
+}
+
+const App: React.FC<AppProps> = ({ history }) => {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={history}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/price" element={<Price />} />
+        <Route path="price" element={<Price />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   )
 }
 

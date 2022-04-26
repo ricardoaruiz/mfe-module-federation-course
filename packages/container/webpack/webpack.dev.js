@@ -23,6 +23,7 @@ module.exports = (env) => {
     entry: './src/index.tsx',
     devServer: {
       port: env.DEV_SERVER_PORT,
+      historyApiFallback: true,
     },
     plugins: [
       new HtmlWebpackPlugin({

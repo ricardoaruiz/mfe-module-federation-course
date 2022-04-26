@@ -11,6 +11,11 @@ exports[`App should render correctly 1`] = `
   >
     MFes - Module Federation
   </div>
+  <a
+    href="/"
+  >
+    Home
+  </a>
   <div
     class="sc-dkzDqf beQdYK"
   >
