@@ -13,6 +13,9 @@ module.exports = (env) => {
   const devConfig = {
     mode: 'development',
     entry: './src/index.tsx',
+    output: {
+      publicPath: `http://localhost:${env.DEV_SERVER_PORT}/`,
+    },
     devServer: {
       port: env.DEV_SERVER_PORT,
     },
