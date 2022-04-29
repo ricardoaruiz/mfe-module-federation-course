@@ -1,6 +1,7 @@
 const path = require('path')
 const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
+const packageJson = require('../package.json')
 
 module.exports = {
   resolve: {
@@ -26,6 +27,9 @@ module.exports = {
       filename: 'remoteEntry.js',
       exposes: {
         './MarketingApp': './src/bootstrap.tsx',
+      },
+      shared: {
+        ...packageJson.dependencies,
       },
     }),
   ],

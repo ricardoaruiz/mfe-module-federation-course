@@ -1,16 +1,21 @@
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { Header } from './components/Header'
-import MarketingApp from './components/MarketingApp'
+
+const AuthApp = React.lazy(() => import('./components/AuthApp'))
+const MarketingApp = React.lazy(() => import('./components/MarketingApp'))
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Header />
-      <h1>Container works fine!! Now with React and Typescript</h1>
-      <h2>Deployed by GithubActions on AWS S3 and Cloudfront</h2>
-      <MarketingApp />
+      <React.Suspense fallback={<h1>Loading...</h1>}>
+        <Routes>
+          <Route path="/*" element={<MarketingApp />} />
+          <Route path="/auth/*" element={<AuthApp />} />
+        </Routes>
+      </React.Suspense>
     </BrowserRouter>
   )
 }

@@ -3,6 +3,7 @@ const { merge } = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 const commonConfig = require('./webpack.common')
+const packageJson = require('../package.json')
 
 module.exports = (env) => {
   if (!env.MFS_HOST) {
@@ -28,7 +29,11 @@ module.exports = (env) => {
       new ModuleFederationPlugin({
         name: 'MFContainer',
         remotes: {
+          auth: `MFAuth@${env.MFS_HOST}/auth/latest/remoteEntry.js`,
           marketing: `MFMarketing@${env.MFS_HOST}/marketing/latest/remoteEntry.js`,
+        },
+        shared: {
+          ...packageJson.dependencies,
         },
       }),
     ],

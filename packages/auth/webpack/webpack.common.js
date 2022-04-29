@@ -1,5 +1,7 @@
 const path = require('path')
 const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
+const packageJson = require('../package.json')
 
 module.exports = {
   resolve: {
@@ -19,4 +21,16 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new ModuleFederationPlugin({
+      name: 'MFAuth',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './AuthApp': './src/bootstrap.tsx',
+      },
+      shared: {
+        ...packageJson.dependencies,
+      },
+    }),
+  ],
 }
