@@ -3,7 +3,7 @@ const { merge } = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 const commonConfig = require('./webpack.common')
-const packageJson = require('../package.json')
+const { dependencies } = require('../package.json')
 
 module.exports = (env) => {
   if (!env.DEV_SERVER_PORT) {
@@ -43,7 +43,19 @@ module.exports = (env) => {
           marketing: `MFMarketing@${mfsHost}:9001/remoteEntry.js`,
         },
         shared: {
-          ...packageJson.dependencies,
+          ...dependencies,
+          react: {
+            singleton: true,
+            requiredVersion: dependencies.react,
+          },
+          'react-dom': {
+            singleton: true,
+            requiredVersion: dependencies['react-dom'],
+          },
+          'react-router-dom': {
+            singleton: true,
+            requiredVersion: dependencies['react-router-dom'],
+          },
         },
       }),
     ],

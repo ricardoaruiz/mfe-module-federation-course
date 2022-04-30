@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  unstable_HistoryRouter as HistoryRouter,
-  Routes,
-  Route,
-} from 'react-router-dom'
+import { Router, Routes, Route } from 'react-router-dom'
 
 import { BrowserHistory, MemoryHistory } from 'history'
 
@@ -14,13 +10,32 @@ type AppProps = {
 }
 
 const App: React.FC<AppProps> = ({ history }) => {
+  const [routerState, setRouterState] = React.useState({
+    action: history.action,
+    location: history.location,
+  })
+
+  React.useLayoutEffect(() => {
+    const unlistenHistory = history.listen(setRouterState)
+    return () => {
+      console.log('desmontando o marketing')
+      unlistenHistory()
+    }
+  }, [history])
+
+  React.useEffect(() => () => console.log('desmontand...'), [])
+
   return (
-    <HistoryRouter history={history}>
+    <Router
+      location={routerState.location}
+      navigationType={routerState.action}
+      navigator={history}
+    >
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="price" element={<Price />} />
       </Routes>
-    </HistoryRouter>
+    </Router>
   )
 }
 

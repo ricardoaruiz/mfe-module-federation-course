@@ -1,7 +1,7 @@
 const path = require('path')
 const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
-const packageJson = require('../package.json')
+const { dependencies } = require('../package.json')
 
 module.exports = {
   resolve: {
@@ -29,7 +29,19 @@ module.exports = {
         './AuthApp': './src/bootstrap.tsx',
       },
       shared: {
-        ...packageJson.dependencies,
+        ...dependencies,
+        react: {
+          singleton: true,
+          requiredVersion: dependencies.react,
+        },
+        'react-dom': {
+          singleton: true,
+          requiredVersion: dependencies['react-dom'],
+        },
+        'react-router-dom': {
+          singleton: true,
+          requiredVersion: dependencies['react-router-dom'],
+        },
       },
     }),
   ],

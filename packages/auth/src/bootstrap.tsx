@@ -10,7 +10,7 @@ import {
 
 import App from './App'
 
-type MountOptions = {
+type MountFunctionOptions = {
   mountPath?: string
   onNavigate?: Listener
   defaultHistory?: BrowserHistory
@@ -24,7 +24,11 @@ type OnParentNavigationParams = {
 
 const mount = (
   el: Element,
-  { defaultHistory, onNavigate, mountPath = '/auth/signin' }: MountOptions
+  {
+    defaultHistory,
+    onNavigate,
+    mountPath = '/auth/signin',
+  }: MountFunctionOptions
 ) => {
   const history =
     defaultHistory ||
