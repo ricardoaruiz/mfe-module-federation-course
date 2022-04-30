@@ -17,10 +17,7 @@ const App: React.FC<AppProps> = ({ history }) => {
 
   React.useLayoutEffect(() => {
     const unlistenHistory = history.listen(setRouterState)
-    return () => {
-      console.log('desmontando o marketing')
-      unlistenHistory()
-    }
+    return () => unlistenHistory()
   }, [history])
 
   React.useEffect(() => () => console.log('desmontand...'), [])

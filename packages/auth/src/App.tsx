@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Routes, Route } from 'react-router-dom'
+import { Router, Routes, Route, Navigate } from 'react-router-dom'
 import { BrowserHistory, MemoryHistory } from 'history'
 
 import { SigninPage, SignupPage } from 'pages'
@@ -26,6 +26,8 @@ const App: React.FC<AppProps> = ({ history }) => {
       navigator={history}
     >
       <Routes>
+        <Route path="/" element={<Navigate to="/auth/signin" />} />
+        <Route path="/auth" element={<Navigate to="/auth/signin" />} />
         <Route path="/auth/signin" element={<SigninPage />} />
         <Route path="/auth/signup" element={<SignupPage />} />
       </Routes>

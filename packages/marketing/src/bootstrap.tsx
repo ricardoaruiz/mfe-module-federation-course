@@ -1,31 +1,19 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+import { createMemoryHistory, createBrowserHistory } from 'history'
 
 import {
-  createMemoryHistory,
-  createBrowserHistory,
-  BrowserHistory,
-  Listener,
-} from 'history'
+  MountFunctionOptions,
+  MountNavigationFunction,
+  OnParentNavigationParams,
+} from 'types/bootstrap.types'
 
 import App from './App'
-
-type MountFunctionOptions = {
-  mountPath?: string
-  onNavigate?: Listener
-  defaultHistory?: BrowserHistory
-}
-
-type OnParentNavigationParams = {
-  location: {
-    pathname: string
-  }
-}
 
 const mount = (
   el: Element,
   { defaultHistory, onNavigate, mountPath }: MountFunctionOptions
-) => {
+): MountNavigationFunction => {
   const history = defaultHistory || createMemoryHistory()
 
   onNavigate && history.listen(onNavigate)
@@ -36,7 +24,7 @@ const mount = (
 
   return {
     onParentNavigation: ({
-      location: { pathname: nextPathname },
+      pathname: nextPathname,
     }: OnParentNavigationParams) => {
       const currentPathname = history.location.pathname
       currentPathname !== nextPathname && history.push(nextPathname)

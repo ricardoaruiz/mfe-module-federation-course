@@ -1,19 +1,25 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from 'react'
-import { UNSAFE_NavigationContext, useNavigate } from 'react-router-dom'
-import { BrowserHistory } from 'history'
-import { MountFunction, OnNavigateParams, UseMicrofrontend } from './types'
+import { useNavigate, useLocation } from 'react-router-dom'
+
+import {
+  MountFunction,
+  OnNavigateParams,
+  OnParentNavigationParams,
+  UseMicrofrontend,
+} from './types'
 
 export const useMicrofrontend = (mount: MountFunction): UseMicrofrontend => {
-  const history = React.useContext(UNSAFE_NavigationContext)
-    .navigator as BrowserHistory
-
   const navigation = useNavigate()
+  const location = useLocation()
+  const onParentNavigationRef =
+    React.useRef<(params: OnParentNavigationParams) => void>()
+
   const mfElement = React.useRef<HTMLDivElement | null>(null)
 
   React.useEffect(() => {
     const { onParentNavigation } = mount(mfElement.current!, {
-      mountPath: history.location.pathname,
+      mountPath: location.pathname,
       onNavigate: ({
         location: { pathname: nextPathname },
       }: OnNavigateParams) => {
@@ -21,9 +27,14 @@ export const useMicrofrontend = (mount: MountFunction): UseMicrofrontend => {
       },
     })
 
-    history.listen(onParentNavigation)
+    onParentNavigationRef.current = onParentNavigation
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  React.useEffect(() => {
+    onParentNavigationRef.current &&
+      onParentNavigationRef.current({ pathname: location.pathname })
+  }, [location.pathname])
 
   return { mfElement }
 }

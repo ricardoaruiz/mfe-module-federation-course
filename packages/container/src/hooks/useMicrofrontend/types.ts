@@ -10,17 +10,21 @@ type MountFunctionOptions = {
   defaultHistory?: BrowserHistory
 }
 
+export type OnNavigateParams = {
+  location: {
+    pathname: string
+  }
+}
+
+export type OnParentNavigationParams = {
+  pathname: string
+}
+
 type MountFunctionReturn = {
-  onParentNavigation: Listener
+  onParentNavigation: (params: OnParentNavigationParams) => void
 }
 
 export type MountFunction = (
   el: Element,
   options: MountFunctionOptions
 ) => MountFunctionReturn
-
-export type OnNavigateParams = {
-  location: {
-    pathname: string
-  }
-}
