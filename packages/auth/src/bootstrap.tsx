@@ -16,6 +16,7 @@ const mount = (
     defaultHistory,
     onNavigate,
     mountPath = '/auth/signin',
+    onSignIn,
   }: MountFunctionOptions
 ): MountNavigationFunction => {
   const history =
@@ -27,7 +28,7 @@ const mount = (
   onNavigate && history.listen(onNavigate)
 
   const root = createRoot(el)
-  root.render(<App history={history} />)
+  root.render(<App history={history} onSignIn={onSignIn} />)
 
   return {
     onParentNavigation: ({
@@ -46,6 +47,7 @@ const isStandAloneMode =
 if (isStandAloneMode) {
   mount(standAloneElement, {
     defaultHistory: createBrowserHistory(),
+    onSignIn: () => console.log('Local signin'),
   })
 }
 

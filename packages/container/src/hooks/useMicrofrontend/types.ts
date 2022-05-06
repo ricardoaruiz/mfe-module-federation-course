@@ -8,6 +8,7 @@ type MountFunctionOptions = {
   mountPath?: string
   onNavigate?: Listener
   defaultHistory?: BrowserHistory
+  onSignIn?: () => void
 }
 
 export type OnNavigateParams = {

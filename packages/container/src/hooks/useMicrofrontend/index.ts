@@ -9,7 +9,10 @@ import {
   UseMicrofrontend,
 } from './types'
 
-export const useMicrofrontend = (mount: MountFunction): UseMicrofrontend => {
+export const useMicrofrontend = (
+  mount: MountFunction,
+  handleSignIn?: () => void
+): UseMicrofrontend => {
   const navigation = useNavigate()
   const location = useLocation()
   const onParentNavigationRef =
@@ -25,6 +28,7 @@ export const useMicrofrontend = (mount: MountFunction): UseMicrofrontend => {
       }: OnNavigateParams) => {
         navigation(nextPathname)
       },
+      onSignIn: handleSignIn,
     })
 
     onParentNavigationRef.current = onParentNavigation

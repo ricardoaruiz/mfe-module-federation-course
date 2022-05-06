@@ -6,9 +6,10 @@ import { SigninPage, SignupPage } from 'pages'
 
 type AppProps = {
   history: BrowserHistory | MemoryHistory
+  onSignIn: () => void
 }
 
-const App: React.FC<AppProps> = ({ history }) => {
+const App: React.FC<AppProps> = ({ history, onSignIn }) => {
   const [routerState, setRouterState] = React.useState({
     action: history.action,
     location: history.location,
@@ -28,8 +29,14 @@ const App: React.FC<AppProps> = ({ history }) => {
       <Routes>
         <Route path="/" element={<Navigate to="/auth/signin" />} />
         <Route path="/auth" element={<Navigate to="/auth/signin" />} />
-        <Route path="/auth/signin" element={<SigninPage />} />
-        <Route path="/auth/signup" element={<SignupPage />} />
+        <Route
+          path="/auth/signin"
+          element={<SigninPage onSignIn={onSignIn} />}
+        />
+        <Route
+          path="/auth/signup"
+          element={<SignupPage onSignIn={onSignIn} />}
+        />
       </Routes>
     </Router>
   )
